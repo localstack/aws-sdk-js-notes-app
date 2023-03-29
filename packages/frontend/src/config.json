@@ -1,7 +1,7 @@
 {
-  "FILES_BUCKET": "<copy-output-FilesBucket-from-cdk-deploy>",
-  "GATEWAY_URL": "<copy-output-GatewayUrl-from-cdk-deploy>",
-  "IDENTITY_POOL_ID": "<copy-output-IdentityPoolId-from-cdk-deploy>",
-  "REGION": "<copy-output-Region-from-cdk-deploy>",
+  "FILES_BUCKET": "aws-sdk-js-notes-app-filesbucket2b30d8e0-98c0fb16",
+  "GATEWAY_URL": "https://td9sm5opmf.execute-api.localhost.localstack.cloud:4566/prod/",
+  "IDENTITY_POOL_ID": "us-east-1:f5e5b1e3-2da0-411b-8fcf-a496b5effff8",
+  "REGION": "us-east-1",
   "MAX_FILE_SIZE": 2000000
 }
