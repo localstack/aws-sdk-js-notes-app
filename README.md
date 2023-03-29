@@ -48,7 +48,7 @@ The `EXTRA_CORS_ALLOWED_ORIGINS` configuration variable allows our website to se
 
 You can build and deploy the sample application on LocalStack by running our `Makefile` commands: `build`, `bootstrap`, and `deploy`. Alternatively, here are instructions to deploy it manually step-by-step.
 
-## Installing dependencies
+### Installing dependencies
 
 To install the dependencies, run the following command:
 
@@ -56,7 +56,7 @@ To install the dependencies, run the following command:
 yarn install
 ```
 
-## Building the Lambda functions
+### Building the Lambda functions
 
 To build the Lambda functions, run the following command:
 
@@ -76,7 +76,7 @@ You are expected to see the following output:
 ⚡ Done in 75ms
 ```
 
-## Bootstrapping the CDK
+### Bootstrapping the CDK
 
 To bootstrap the CDK, run the following command:
 
@@ -84,7 +84,7 @@ To bootstrap the CDK, run the following command:
 yarn cdklocal bootstrap
 ```
 
-## Deploying the infrastructure
+### Deploying the infrastructure
 
 To deploy the infrastructure, run the following command:
 
@@ -113,7 +113,7 @@ arn:aws:cloudformation:us-east-1:000000000000:stack/aws-sdk-js-notes-app/ebb3238
 ✨  Total time: 11.3s
 ```
 
-## Configuring the frontend
+### Configuring the frontend
 
 To configure the frontend to use the deployed infrastructure, run the following command:
 
@@ -123,7 +123,7 @@ yarn prepare:frontend-local
 
 It will update the `packages/frontend/src/config.json` file with the deployed infrastructure's output values.
 
-## Starting the frontend
+### Starting the frontend
 
 To start the frontend, run the following command:
 
@@ -133,7 +133,7 @@ yarn start:frontend
 
 Alternatively, you can build the frontend and deploy it to S3 to access it from a browser.
 
-## Testing the web application
+### Testing the web application
 
 To test the web application, open the URL you see in the output of the `yarn start:frontend` command in your browser. You will see the following page:
 
@@ -149,7 +149,7 @@ You can click on **Create** and see the note added to the list of notes:
 
 You can further edit, delete, and view the notes.
 
-## GitHub Action
+### GitHub Action
 
 This application sample hosts an example GitHub Action workflow that starts up LocalStack, builds the Lambda functions, and deploys the infrastructure on the runner. You can find the workflow in the `.github/workflows/main.yml` file. To run the workflow, you can fork this repository and push a commit to the `main` branch.
 
