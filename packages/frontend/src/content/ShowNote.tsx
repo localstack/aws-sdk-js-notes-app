@@ -3,7 +3,6 @@ import { RouteComponentProps, navigate } from "@reach/router";
 import { Form, Card } from "react-bootstrap";
 import { GATEWAY_URL } from "../config.json";
 import { DeleteNoteButton, SaveNoteButton } from "./";
-import { getObjectUrl } from "../libs";
 import { HomeButton, Loading, PageContainer } from "../components";
 
 const ShowNote = (props: RouteComponentProps<{ noteId: string }>) => {
@@ -22,10 +21,6 @@ const ShowNote = (props: RouteComponentProps<{ noteId: string }>) => {
         const response = await fetch(fetchURL);
         const data = await response.json();
         setNoteContent(data.content);
-        if (data.attachment) {
-          setAttachment(data.attachment);
-          setAttachmentURL(await getObjectUrl(data.attachment));
-        }
       } catch (error) {
         // Navigate to 404 page, as noteId probably not present
         navigate("/404");

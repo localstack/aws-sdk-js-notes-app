@@ -6,6 +6,10 @@ export const failure = (body: any) => {
   return buildResponse(500, body);
 };
 
+export const not_found = (body: any) => {
+  return buildResponse(404, body);
+};
+
 const buildResponse = (statusCode: number, body: any) => ({
   statusCode: statusCode,
   headers: {

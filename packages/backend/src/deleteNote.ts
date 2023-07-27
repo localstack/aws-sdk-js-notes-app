@@ -14,7 +14,18 @@ export const handler = async (event: APIGatewayEvent) => {
   };
 
   try {
-    const client = new DynamoDBClient({});
+    let client: DynamoDBClient;
+
+    if (process.env.LOCALSTACK_HOSTNAME) {
+      const localStackConfig = {
+        endpoint: `http://${process.env.LOCALSTACK_HOSTNAME}:${process.env.EDGE_PORT}`,
+        region: "us-east-1", // Change the region as per your setup
+      };
+      client = new DynamoDBClient(localStackConfig);
+    } else {
+      // Use the default AWS configuration
+      client = new DynamoDBClient({});
+    }
     await client.send(new DeleteItemCommand(params));
     return success({ status: true });
   } catch (e) {
