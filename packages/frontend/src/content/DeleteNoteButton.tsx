@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Button, Alert } from "react-bootstrap";
 import { GATEWAY_URL } from "../config.json";
 import { navigate } from "@reach/router";
-import { deleteObject } from "../libs";
 import { ButtonSpinner } from "../components";
 
 const DeleteNoteButton = (props: { noteId: string; attachment?: string }) => {
@@ -17,9 +16,6 @@ const DeleteNoteButton = (props: { noteId: string; attachment?: string }) => {
     const deleteNoteURL = `${GATEWAY_URL}notes/${noteId}`;
 
     try {
-      if (attachment) {
-        await deleteObject(attachment);
-      }
       await fetch(deleteNoteURL, {
         method: "DELETE",
       });

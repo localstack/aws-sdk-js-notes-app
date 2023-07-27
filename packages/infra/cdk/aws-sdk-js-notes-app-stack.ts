@@ -73,64 +73,7 @@ export class AwsSdkJsNotesAppStack extends Stack {
       )
     );
 
-    const filesBucket = new s3.Bucket(this, "files-bucket");
-    filesBucket.addCorsRule({
-      allowedOrigins: apigw.Cors.ALL_ORIGINS, // NOT recommended for production code
-      allowedMethods: [
-        s3.HttpMethods.PUT,
-        s3.HttpMethods.GET,
-        s3.HttpMethods.DELETE,
-      ],
-      allowedHeaders: ["*"],
-    });
-
-    const identityPool = new cognito.CfnIdentityPool(this, "identity-pool", {
-      allowUnauthenticatedIdentities: true,
-    });
-
-    const unauthenticated = new iam.Role(this, "unauthenticated-role", {
-      assumedBy: new iam.FederatedPrincipal(
-        "cognito-identity.amazonaws.com",
-        {
-          StringEquals: {
-            "cognito-identity.amazonaws.com:aud": identityPool.ref,
-          },
-          "ForAnyValue:StringLike": {
-            "cognito-identity.amazonaws.com:amr": "unauthenticated",
-          },
-        },
-        "sts:AssumeRoleWithWebIdentity"
-      ),
-    });
-
-    // NOT recommended for production code - only give read permissions for unauthenticated resources
-    filesBucket.grantRead(unauthenticated);
-    filesBucket.grantPut(unauthenticated);
-    filesBucket.grantDelete(unauthenticated);
-
-    // Add policy to start Transcribe stream transcription
-    unauthenticated.addToPolicy(
-      new iam.PolicyStatement({
-        resources: ["*"],
-        actions: ["transcribe:StartStreamTranscriptionWebSocket"],
-      })
-    );
-
-    // Add policy to enable Amazon Polly text-to-speech
-    unauthenticated.addManagedPolicy(
-      iam.ManagedPolicy.fromAwsManagedPolicyName("AmazonPollyFullAccess")
-    );
-
-    new cognito.CfnIdentityPoolRoleAttachment(this, "role-attachment", {
-      identityPoolId: identityPool.ref,
-      roles: {
-        unauthenticated: unauthenticated.roleArn,
-      },
-    });
-
-    new CfnOutput(this, "FilesBucket", { value: filesBucket.bucketName });
     new CfnOutput(this, "GatewayUrl", { value: api.url });
-    new CfnOutput(this, "IdentityPoolId", { value: identityPool.ref });
     new CfnOutput(this, "Region", { value: this.region });
   }
 }

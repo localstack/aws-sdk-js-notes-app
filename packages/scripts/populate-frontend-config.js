@@ -12,13 +12,12 @@ const isLocal = process.argv.includes("--local");
   const configFile = join(__dirname, "..", "frontend", "src", "config.json");
 
   try {
-    const deployCommand = isLocal ? "yarn cdklocal deploy --outputs-file" : "yarn cdk deploy --outputs-file";
-    const execProcess = exec(
-      `${deployCommand} ${cdkOutputsFile}`,
-      {
-        cwd: join(__dirname, "..", "infra"),
-      }
-    );
+    const deployCommand = isLocal
+      ? "yarn cdklocal deploy --outputs-file"
+      : "yarn cdk deploy --outputs-file";
+    const execProcess = exec(`${deployCommand} ${cdkOutputsFile}`, {
+      cwd: join(__dirname, "..", "infra"),
+    });
     execProcess.stdout.pipe(process.stdout);
     execProcess.stderr.pipe(process.stderr);
     await new Promise((resolve) => {
@@ -34,9 +33,7 @@ const isLocal = process.argv.includes("--local");
     const cdkOutput = JSON.parse(readFileSync(cdkOutputsFile))[
       "aws-sdk-js-notes-app"
     ];
-    configContents.FILES_BUCKET = cdkOutput.FilesBucket;
     configContents.GATEWAY_URL = cdkOutput.GatewayUrl;
-    configContents.IDENTITY_POOL_ID = cdkOutput.IdentityPoolId;
     configContents.REGION = cdkOutput.Region;
     writeFileSync(configFile, JSON.stringify(configContents, null, 2));
   } catch (error) {

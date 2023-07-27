@@ -38,7 +38,6 @@ We are using the following AWS services and their features to build our infrastr
 Start LocalStack Pro with the `LOCALSTACK_API_KEY` pre-configured:
 
 ```shell
-export LOCALSTACK_API_KEY=<your-api-key>
 EXTRA_CORS_ALLOWED_ORIGINS=* localstack start
 ```
 
@@ -162,5 +161,4 @@ The sample application is based on a public [AWS sample app](https://github.com/
 ## Contributing
 
 We appreciate your interest in contributing to our project and are always looking for new ways to improve the developer experience. We welcome feedback, bug reports, and even feature ideas from the community.
-Please refer to the [contributing file](CONTRIBUTING.md) for more details on how to get started. 
-
+Please refer to the [contributing file](CONTRIBUTING.md) for more details on how to get started.
