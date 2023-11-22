@@ -4,6 +4,8 @@ import {
   CfnOutput,
   aws_s3 as s3,
   aws_s3_deployment,
+  aws_cloudfront as cloudfront,
+  aws_cloudfront_origins as origins,
 } from "aws-cdk-lib";
 import { Construct } from "constructs";
 
@@ -20,6 +22,25 @@ export class AwsSdkJsNotesAppFrontendStack extends Stack {
     new aws_s3_deployment.BucketDeployment(this, "DeployWebsite", {
       sources: [aws_s3_deployment.Source.asset("../frontend/dist")],
       destinationBucket: websiteBucket,
+    });
+
+    new cloudfront.Distribution(this, "WebsiteDistribution", {
+      defaultRootObject: "index.html",
+      defaultBehavior: {
+        origin: new origins.S3Origin(websiteBucket),
+      },
+      errorResponses: [
+        {
+          httpStatus: 403,
+          responseHttpStatus: 200,
+          responsePagePath: "/index.html",
+        },
+        {
+          httpStatus: 404,
+          responseHttpStatus: 200,
+          responsePagePath: "/index.html",
+        },
+      ],
     });
 
     new CfnOutput(this, "FrontendBucketWebsite", {
