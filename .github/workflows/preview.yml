@@ -30,3 +30,9 @@ jobs:
             make deploy-frontend
             distributionId=$(awslocal cloudfront list-distributions | jq -r '.DistributionList.Items[0].Id')
             echo "Open URL: $AWS_ENDPOINT_URL/cloudfront/$AWS_DEFAULT_REGION/$distributionId/"
+
+      - name: Finalize PR comment
+        uses: LocalStack/setup-localstack/finish@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          include-preview: true
