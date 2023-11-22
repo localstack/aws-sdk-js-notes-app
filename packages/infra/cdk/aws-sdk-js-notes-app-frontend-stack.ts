@@ -15,8 +15,6 @@ export class AwsSdkJsNotesAppFrontendStack extends Stack {
 
     const websiteBucket = new s3.Bucket(this, "WebsiteBucket", {
       bucketName: "notes-app-frontend",
-      websiteIndexDocument: "index.html",
-      websiteErrorDocument: "index.html",
     });
 
     new aws_s3_deployment.BucketDeployment(this, "DeployWebsite", {
@@ -29,18 +27,6 @@ export class AwsSdkJsNotesAppFrontendStack extends Stack {
       defaultBehavior: {
         origin: new origins.S3Origin(websiteBucket),
       },
-      errorResponses: [
-        {
-          httpStatus: 403,
-          responseHttpStatus: 200,
-          responsePagePath: "/index.html",
-        },
-        {
-          httpStatus: 404,
-          responseHttpStatus: 200,
-          responsePagePath: "/index.html",
-        },
-      ],
     });
 
     new CfnOutput(this, "FrontendBucketWebsite", {
