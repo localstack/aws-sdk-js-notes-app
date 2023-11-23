@@ -139,6 +139,18 @@ export class AwsSdkJsNotesAppStack extends Stack {
       defaultBehavior: {
         origin: new origins.S3Origin(websiteBucket),
       },
+      errorResponses: [
+        {
+          httpStatus: 403,
+          responseHttpStatus: 200,
+          responsePagePath: '/index.html',
+        },
+        {
+          httpStatus: 404,
+          responseHttpStatus: 200,
+          responsePagePath: '/index.html',
+        },
+      ],
     });
 
     new CfnOutput(this, "FilesBucket", { value: filesBucket.bucketName });
