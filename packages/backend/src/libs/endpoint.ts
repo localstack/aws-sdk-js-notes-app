@@ -1,1 +1,1 @@
-export const endpoint = "http://localhost:4566"
+export const endpoint = process.env.AWS_ENDPOINT_URL || '';
