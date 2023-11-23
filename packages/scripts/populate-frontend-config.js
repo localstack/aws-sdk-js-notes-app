@@ -35,7 +35,7 @@ const isLocal = process.argv.includes("--local");
     ];
     const envContent = `
     VITE_FILES_BUCKET=${cdkOutput.FilesBucket}
-    VITE_GATEWAY_URL=${cdkOutput.GatewayUrl}
+    VITE_GATEWAY_ID=${cdkOutput.GatewayId}
     VITE_IDENTITY_POOL_ID=${cdkOutput.IdentityPoolId}
     VITE_REGION=${cdkOutput.Region}
     VITE_BASE_URL=/cloudfront/${cdkOutput.FrontendDistributionId}/

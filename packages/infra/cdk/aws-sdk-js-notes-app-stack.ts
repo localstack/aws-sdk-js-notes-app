@@ -142,7 +142,7 @@ export class AwsSdkJsNotesAppStack extends Stack {
     });
 
     new CfnOutput(this, "FilesBucket", { value: filesBucket.bucketName });
-    new CfnOutput(this, "GatewayUrl", { value: api.url });
+    new CfnOutput(this, "GatewayId", { value: api.restApiId });
     new CfnOutput(this, "IdentityPoolId", { value: identityPool.ref });
     new CfnOutput(this, "Region", { value: this.region });
     new CfnOutput(this, "FrontendDistributionId", { value: distribution.distributionId });
