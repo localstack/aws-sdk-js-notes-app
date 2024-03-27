@@ -28,7 +28,7 @@ jobs:
           node-version: 18
 
       - name: Start LocalStack
-        uses: LocalStack/setup-localstack@v0.1.2
+        uses: LocalStack/setup-localstack@main
         with:
           image-tag: 'latest'
           install-awslocal: 'true'
