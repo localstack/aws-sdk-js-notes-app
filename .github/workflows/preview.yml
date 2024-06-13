@@ -23,6 +23,7 @@ jobs:
           state-action: start
           include-preview: 'true'
           install-awslocal: 'true'
+          skip-ephemeral-stop: 'false'
           # Multi line commands are folding for some reason, so we enforce new lines
           # For more predictable usage, use script files
           preview-cmd: |
@@ -37,10 +38,3 @@ jobs:
             distributionId=$(awslocal cloudfront list-distributions | jq -r '.DistributionList.Items[0].Id')
             echo "PREVIEW_URL=$AWS_ENDPOINT_URL/cloudfront/$distributionId/" >> $GITHUB_ENV
 
-
-      - name: Finalize PR comment
-        uses: LocalStack/setup-localstack/finish@fix_finish_comment
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          include-preview: true
-          preview-url: ${{ env.PREVIEW_URL }}
