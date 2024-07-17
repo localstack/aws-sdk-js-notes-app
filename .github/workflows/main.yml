@@ -28,7 +28,7 @@ jobs:
           node-version: 18
 
       - name: Start LocalStack
-        uses: LocalStack/setup-localstack@v0.2.0
+        uses: LocalStack/setup-localstack@v0.2.2
         env:
           LOCALSTACK_API_KEY: ${{ secrets.LOCALSTACK_API_KEY }}
           DNS_ADDRESS: 0
