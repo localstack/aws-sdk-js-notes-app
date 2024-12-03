@@ -1,4 +1,8 @@
-import { aws_dynamodb as dynamodb, aws_lambda as lambda } from "aws-cdk-lib";
+import {
+  aws_dynamodb as dynamodb,
+  aws_lambda as lambda,
+  aws_s3 as s3,
+} from "aws-cdk-lib";
 import { Construct } from "constructs";
 
 export interface NotesApiProps {
@@ -21,7 +25,10 @@ export class NotesApi extends Construct {
       runtime: lambda.Runtime.NODEJS_18_X,
       handler: "app.handler",
       // ToDo: find a better way to pass lambda code
-      code: lambda.Code.fromAsset(`../backend/dist/${id}`),
+      code: lambda.Code.fromBucket(
+        s3.Bucket.fromBucketName(this, "hot-reload", "hot-reload"),
+        `${__dirname}/../../backend/dist/${id}`
+      ),
       environment: {
         NOTES_TABLE_NAME: table.tableName,
       },

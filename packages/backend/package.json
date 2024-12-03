@@ -5,11 +5,13 @@
   "description": "Backend for notes app created using modular AWS SDK for JavaScript",
   "dependencies": {
     "@aws-sdk/client-dynamodb": "3.245.0",
-    "@aws-sdk/util-dynamodb": "3.245.0"
+    "@aws-sdk/util-dynamodb": "3.245.0",
+    "nodemon": "^3.1.7"
   },
   "scripts": {
     "build": "tsc --noEmit && node build.js",
     "build:backend": "cd .. && yarn build:backend",
+    "hotreload": "nodemon --watch src --ext '*' --exec 'node build.js'",
     "cdk": "cd .. && yarn cdk"
   },
   "keywords": [

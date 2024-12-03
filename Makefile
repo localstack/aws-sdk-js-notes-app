@@ -16,6 +16,9 @@ install:
 build:
 		yarn && yarn build:backend;
 
+hotreload:
+		yarn && yarn hotreload:backend;
+
 bootstrap:
 		yarn cdklocal bootstrap;
 
@@ -33,6 +36,9 @@ prepare-frontend-local:
 
 build-frontend:
 		yarn build:frontend
+
+start-frontend:
+		yarn start:frontend
 
 bootstrap-frontend:
 		yarn cdklocal bootstrap --app="node dist/aws-sdk-js-notes-app-frontend.js";
@@ -53,5 +59,13 @@ ready:
 ## Save the logs in a separate file, since the LS container will only contain the logs of the last sample run.
 logs:
 		@localstack logs > logs.txt
+
+setup-challenge:
+		yarn install
+		make build
+		make bootstrap
+		make deploy
+		make prepare-frontend-local
+		make hotreload
 
 .PHONY: usage install run start stop ready logs
