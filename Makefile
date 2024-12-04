@@ -63,7 +63,7 @@ logs:
 setup-challenge:
 		yarn install
 		make build
-		IS_LOCAL_DEV=true make bootstrap
+		make bootstrap
 		IS_LOCAL_DEV=true make deploy
 		make prepare-frontend-local
 		make hotreload

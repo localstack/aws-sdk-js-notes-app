@@ -21,7 +21,7 @@ export class NotesApi extends Construct {
 
     const { table, grantActions } = props;
 
-    const isLocalDev = process.env.IS_LOCAL_DEV;
+    const isLocalDev = ["true", true].includes(process.env.IS_LOCAL_DEV);
 
     const codeConfig = isLocalDev
       ? lambda.Code.fromBucket(
