@@ -9,6 +9,7 @@
     "cdk": "cd packages/infra && yarn cdk",
     "cdklocal": "cd packages/infra && yarn cdklocal",
     "build:backend": "cd packages/backend && yarn build",
+    "hotreload:backend": "cd packages/backend && yarn hotreload",
     "prepare:frontend": "node packages/scripts/populate-frontend-config.js",
     "prepare:frontend-local": "node packages/scripts/populate-frontend-config.js --local",
     "build:frontend": "cd packages/frontend && yarn build",
