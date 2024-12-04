@@ -21,14 +21,19 @@ export class NotesApi extends Construct {
 
     const { table, grantActions } = props;
 
+    const isLocalDev = process.env.IS_LOCAL_DEV;
+
+    const codeConfig = isLocalDev
+      ? lambda.Code.fromBucket(
+          s3.Bucket.fromBucketName(this, "hot-reload", "hot-reload"),
+          `${__dirname}/../../backend/dist/${id}`
+        )
+      : lambda.Code.fromAsset(`../backend/dist/${id}`);
+
     this.handler = new lambda.Function(this, "handler", {
       runtime: lambda.Runtime.NODEJS_18_X,
       handler: "app.handler",
-      // ToDo: find a better way to pass lambda code
-      code: lambda.Code.fromBucket(
-        s3.Bucket.fromBucketName(this, "hot-reload", "hot-reload"),
-        `${__dirname}/../../backend/dist/${id}`
-      ),
+      code: codeConfig,
       environment: {
         NOTES_TABLE_NAME: table.tableName,
       },
